@@ -1,20 +1,105 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useState } from 'react';
+import { NavLink, Link } from 'react-router-dom';
+import styles from './Header.module.scss';
+
+const getLinkClass = ({ isActive }: { isActive: boolean }) =>
+  isActive ? `${styles.links} ${styles.active}` : styles.links;
+
+const getIconsClass = ({ isActive }: { isActive: boolean }) =>
+  isActive ? `${styles.menuIcon} ${styles.active}` : styles.menuIcon;
 
 export const Header = () => {
+  const [openMenu, setOpenMenu] = useState(false);
+
+  const closeMenu = () => setOpenMenu(false);
+
   return (
-    <header>
-      <div>Logo</div>
-      <nav className="nav">
-        <NavLink to={'/'}>Home</NavLink>
-        <NavLink to={'/phones'}>Phones</NavLink>
-        <NavLink to={'/tablets'}>Tablets</NavLink>
-        <NavLink to={'/accessories'}>Accessories</NavLink>
-        <div className="addition">
-          <NavLink to={'/favourite'}>icon</NavLink> {/* change letter */}
-          <NavLink to={'/cart'}>icon</NavLink>
-        </div>
+    <header className={styles.header}>
+      <div className={styles.logo}>
+        <Link to={'/'} onClick={closeMenu}>
+          <img src="icons/logo.svg" alt="Logo" className={styles.logoImg} />
+        </Link>
+      </div>
+
+      <nav className={styles.nav}>
+        <NavLink to={'/'} className={getLinkClass} end>
+          Home
+        </NavLink>
+        <NavLink to={'/phones'} className={getLinkClass}>
+          Phones
+        </NavLink>
+        <NavLink to={'/tablets'} className={getLinkClass}>
+          Tablets
+        </NavLink>
+        <NavLink to={'/accessories'} className={getLinkClass}>
+          Accessories
+        </NavLink>
       </nav>
+
+      <button
+        className={`${styles.icon} ${styles.burger}`}
+        type="button"
+        onClick={() => setOpenMenu(!openMenu)}
+      >
+        <img
+          src={openMenu ? 'icons/close.svg' : 'icons/menu.svg'}
+          alt={openMenu ? 'Close menu' : 'Open menu'}
+        />
+      </button>
+
+      <div className={styles.icons}>
+        {/* change letter */}
+        <NavLink to={'/favorites'} className={styles.icon}>
+          <img src="icons/heaer.svg" alt="Favorites" />
+        </NavLink>
+        <NavLink to={'/cart'} className={styles.icon}>
+          <img src="icons/shopping-bag.svg" alt="Cart" />
+        </NavLink>
+      </div>
+
+      {openMenu && (
+        <div className={styles.menu}>
+          <nav className={styles.menuNav}>
+            <NavLink to={'/'} className={getLinkClass} onClick={closeMenu} end>
+              Home
+            </NavLink>
+            <NavLink
+              to={'/phones'}
+              className={getLinkClass}
+              onClick={closeMenu}
+            >
+              Phones
+            </NavLink>
+            <NavLink
+              to={'/tablets'}
+              className={getLinkClass}
+              onClick={closeMenu}
+            >
+              Tablets
+            </NavLink>
+            <NavLink
+              to={'/accessories'}
+              className={getLinkClass}
+              onClick={closeMenu}
+            >
+              Accessories
+            </NavLink>
+          </nav>
+
+          <div className={styles.menuIcons}>
+            <NavLink
+              to={'/favorites'}
+              className={getIconsClass}
+              onClick={closeMenu}
+            >
+              <img src="icons/heaer.svg" alt="Favorites" />
+            </NavLink>
+            <NavLink to={'/cart'} className={getIconsClass} onClick={closeMenu}>
+              <img src="icons/shopping-bag.svg" alt="Cart" />
+            </NavLink>
+          </div>
+        </div>
+      )}
     </header>
   );
 };
