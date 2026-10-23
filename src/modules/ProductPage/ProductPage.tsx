@@ -1,14 +1,11 @@
 import React from 'react';
 import { Category } from '../../types';
-
-const TITLES: Record<Category, string> = {
-  phones: 'Phones',
-  tablets: 'Tablets',
-  accessories: 'Accessories',
-};
+import { CATEGORY_TITLES } from '../../utils/categoryTitles';
 
 type Props = {
   category: Category;
 };
 
-export const ProductPage = ({ category }: Props) => <h1>{TITLES[category]}</h1>;
+export const ProductPage = ({ category }: Props) => (
+  <h1>{CATEGORY_TITLES[category]}</h1>
+);

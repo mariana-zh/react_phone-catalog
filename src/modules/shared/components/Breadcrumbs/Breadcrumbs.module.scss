@@ -1,0 +1,30 @@
+@use '../../../../styles/mixins' as *;
+@use '../../../../styles/variables' as *;
+
+.breadcrumbs {
+  @include small-text;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.home {
+  display: flex;
+}
+
+.link {
+  color: $color-primary;
+  transition: color 0.3s;
+
+  &:hover {
+    color: $color-secondary;
+  }
+}
+
+.current {
+  overflow: hidden;
+  color: $color-secondary;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
