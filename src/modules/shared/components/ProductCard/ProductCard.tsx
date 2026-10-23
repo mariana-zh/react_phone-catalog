@@ -1,12 +1,20 @@
-import React from 'react';
-import { Product } from '../../../../types';
-import styles from './ProductCard.module.scss';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { Product } from '../../../../types';
+import { CartContext } from '../../../../context/CartContext';
+import { FavoritesContext } from '../../../../context/FavoritesContext';
+import styles from './ProductCard.module.scss';
 
 type Props = { product: Product };
 
 export const ProductCard = ({ product }: Props) => {
   const productLink = `/product/${product.itemId}`;
+
+  const { cart, addToCart } = useContext(CartContext);
+  const { favorites, toggleFavorite } = useContext(FavoritesContext);
+
+  const isFavorite = favorites.some(fav => fav.itemId === product.itemId);
+  const isInCart = cart.some(item => item.id === product.itemId);
 
   return (
     <div className={styles.card}>
@@ -38,11 +46,24 @@ export const ProductCard = ({ product }: Props) => {
       </dl>
 
       <div className={styles.buttons}>
-        <button type="button" className={styles.addButton}>
-          Add to cart
+        <button
+          type="button"
+          className={
+            isInCart ? `${styles.addButton} ${styles.added}` : styles.addButton
+          }
+          onClick={() => addToCart(product)}
+        >
+          {isInCart ? 'Added' : 'Add to cart'}
         </button>
-        <button type="button" className={styles.favButton}>
-          <img src="icons/heaer.svg" alt="add to fav" />
+        <button
+          type="button"
+          className={styles.favButton}
+          onClick={() => toggleFavorite(product)}
+        >
+          <img
+            src={isFavorite ? 'icons/filled-heart.svg' : 'icons/heaer.svg'}
+            alt="add to fav"
+          />
         </button>
       </div>
     </div>

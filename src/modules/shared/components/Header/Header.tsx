@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import styles from './Header.module.scss';
+import { CartContext } from '../../../../context/CartContext';
+import { FavoritesContext } from '../../../../context/FavoritesContext';
 
 const getLinkClass = ({ isActive }: { isActive: boolean }) =>
   isActive ? `${styles.links} ${styles.active}` : styles.links;
@@ -10,6 +12,11 @@ const getIconsClass = ({ isActive }: { isActive: boolean }) =>
 
 export const Header = () => {
   const [openMenu, setOpenMenu] = useState(false);
+  const { cart } = useContext(CartContext);
+  const { favorites } = useContext(FavoritesContext);
+
+  const favoritesCount = favorites.length;
+  const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   const closeMenu = () => setOpenMenu(false);
 
@@ -50,10 +57,18 @@ export const Header = () => {
       <div className={styles.icons}>
         {/* change letter */}
         <NavLink to={'/favorites'} className={styles.icon}>
-          <img src="icons/heaer.svg" alt="Favorites" />
+          <span className={styles.iconWrapper}>
+            <img src="icons/heaer.svg" alt="Favorites" />
+            {favoritesCount > 0 && (
+              <span className={styles.badge}>{favoritesCount}</span>
+            )}
+          </span>
         </NavLink>
         <NavLink to={'/cart'} className={styles.icon}>
-          <img src="icons/shopping-bag.svg" alt="Cart" />
+          <span className={styles.iconWrapper}>
+            <img src="icons/shopping-bag.svg" alt="Cart" />
+            {cartCount > 0 && <span className={styles.badge}>{cartCount}</span>}
+          </span>
         </NavLink>
       </div>
 
@@ -92,10 +107,20 @@ export const Header = () => {
               className={getIconsClass}
               onClick={closeMenu}
             >
-              <img src="icons/heaer.svg" alt="Favorites" />
+              <span className={styles.iconWrapper}>
+                <img src="icons/heaer.svg" alt="Favorites" />
+                {favoritesCount > 0 && (
+                  <span className={styles.badge}>{favoritesCount}</span>
+                )}
+              </span>
             </NavLink>
             <NavLink to={'/cart'} className={getIconsClass} onClick={closeMenu}>
-              <img src="icons/shopping-bag.svg" alt="Cart" />
+              <span className={styles.iconWrapper}>
+                <img src="icons/shopping-bag.svg" alt="Cart" />
+                {cartCount > 0 && (
+                  <span className={styles.badge}>{cartCount}</span>
+                )}
+              </span>
             </NavLink>
           </div>
         </div>

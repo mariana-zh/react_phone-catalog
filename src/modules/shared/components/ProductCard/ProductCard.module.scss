@@ -102,6 +102,16 @@
   }
 }
 
+.added {
+  border: 1px solid $color-elements;
+  color: $color-green;
+  background-color: $color-white;
+
+  &:hover {
+    box-shadow: none;
+  }
+}
+
 .favButton {
   display: flex;
   justify-content: center;
