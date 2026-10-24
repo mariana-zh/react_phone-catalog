@@ -1,0 +1,71 @@
+@use '../../styles/mixins' as *;
+@use '../../styles/variables' as *;
+
+.page {
+  padding: 0 16px;
+
+  @include on-tablet {
+    padding: 0 24px;
+  }
+
+  @include on-desktop {
+    padding: 0 32px
+  }
+}
+
+.title {
+  margin-top: 24px;
+
+  @include on-tablet {
+    margin-top: 40px
+  }
+
+  @include h1;
+}
+
+.count {
+  color: $color-secondary;
+  margin: 8px 0 32px;
+
+  @include on-tablet {
+    margin: 8px 0 40px;
+  }
+
+  @include body-text;
+}
+
+
+.controls {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.control {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.lable {
+  color: $color-secondary;
+
+  @include small-text;
+}
+
+.select {
+  width: 136px;
+  height: 40px;
+  border: 1px solid $color-icons;
+   padding: 0 12px;
+
+  @include on-tablet {
+    width: 187px;
+  }
+
+
+}
+
+.pagination {
+  margin-top: 40px;
+}
