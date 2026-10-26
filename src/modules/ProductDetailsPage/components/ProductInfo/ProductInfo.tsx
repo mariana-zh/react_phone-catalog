@@ -37,7 +37,7 @@ export const ProductInfo = ({ product, cardProduct }: Props) => {
             }
           }}
         >
-          {isInCart ? 'Added' : 'Add to cart'}
+          {isInCart ? 'Added to cart' : 'Add to cart'}
         </button>
         <button
           type="button"

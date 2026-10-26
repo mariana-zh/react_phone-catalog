@@ -20,7 +20,8 @@ export const HomePage = () => {
 
   return (
     <div className={styles.page}>
-      <h1 className={styles.title}>Welcome to Nice Gadgets store!</h1>
+      <h1 className={styles.visuallyHidden}>Product Catalog</h1>
+      <h2 className={styles.title}>Welcome to Nice Gadgets store!</h2>
       {isLoading && <Loader />}
       <PicturesSlider />
 

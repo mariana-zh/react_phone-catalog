@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Category, Product } from '../../types';
 import { CATEGORY_TITLES } from '../../utils/categoryTitles';
 import { Breadcrumbs } from '../shared/components/Breadcrumbs';
@@ -18,7 +18,7 @@ export const ProductPage = ({ category }: Props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
 
-  useEffect(() => {
+  const loadData = useCallback(() => {
     setIsLoading(true);
     setHasError(false);
     getProductCategory(category)
@@ -26,6 +26,10 @@ export const ProductPage = ({ category }: Props) => {
       .catch(() => setHasError(true))
       .finally(() => setIsLoading(false));
   }, [category]);
+
+  useEffect(() => {
+    loadData();
+  }, [loadData]);
 
   const [searchParams, setSearchParams] = useSearchParams();
   const sort = searchParams.get('sort') || 'age';
@@ -55,7 +59,12 @@ export const ProductPage = ({ category }: Props) => {
   const handlePageChange = (newPage: number) => {
     const params = new URLSearchParams(searchParams);
 
-    params.set('page', String(newPage));
+    if (newPage === 1) {
+      params.delete('page');
+    } else {
+      params.set('page', String(newPage));
+    }
+
     setSearchParams(params);
   };
 
@@ -92,7 +101,12 @@ export const ProductPage = ({ category }: Props) => {
             onChange={event => {
               const params = new URLSearchParams(searchParams);
 
-              params.set('perPage', event.target.value);
+              if (event.target.value === 'all') {
+                params.delete('perPage');
+              } else {
+                params.set('perPage', event.target.value);
+              }
+
               params.delete('page');
               setSearchParams(params);
             }}
@@ -107,7 +121,14 @@ export const ProductPage = ({ category }: Props) => {
 
       {isLoading && <Loader />}
 
-      {hasError && <p className={styles.message}>Something went wrong</p>}
+      {hasError && (
+        <div className={styles.error}>
+          <p className={styles.message}>Something went wrong</p>
+          <button type="button" className={styles.reload} onClick={loadData}>
+            Reload
+          </button>
+        </div>
+      )}
 
       {!isLoading && !hasError && products.length === 0 && (
         <p className={styles.message}>There are no {category} yet</p>

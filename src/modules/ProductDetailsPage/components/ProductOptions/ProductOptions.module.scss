@@ -18,12 +18,22 @@
   border-bottom: 1px solid $color-elements;
 }
 
+.radio {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
 .color {
   width: 32px;
   height: 32px;
   border: 1px solid $color-elements;
   border-radius: 50%;
   box-shadow: inset 0 0 0 2px $color-white;
+  cursor: pointer;
   transition: border-color 0.3s;
 
   &:hover {
@@ -32,6 +42,11 @@
 
   &.active {
     border-color: $color-primary;
+  }
+
+  &:has(:focus-visible) {
+    outline: 2px solid $color-primary;
+    outline-offset: 2px;
   }
 }
 
@@ -44,6 +59,7 @@
   padding: 0 8px;
   border: 1px solid $color-icons;
   color: $color-primary;
+  cursor: pointer;
   transition: border-color 0.3s;
 
   &:hover {
@@ -54,5 +70,10 @@
     border-color: $color-primary;
     background-color: $color-primary;
     color: $color-white;
+  }
+
+  &:has(:focus-visible) {
+    outline: 2px solid $color-primary;
+    outline-offset: 2px;
   }
 }

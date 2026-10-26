@@ -9,7 +9,7 @@
   }
 
   @include on-desktop {
-    padding: 0 32px
+    padding: 0 32px;
   }
 }
 
@@ -17,7 +17,7 @@
   margin-top: 24px;
 
   @include on-tablet {
-    margin-top: 40px
+    margin-top: 40px;
   }
 
   @include h1;
@@ -33,7 +33,6 @@
 
   @include body-text;
 }
-
 
 .controls {
   display: flex;
@@ -57,15 +56,41 @@
   width: 136px;
   height: 40px;
   border: 1px solid $color-icons;
-   padding: 0 12px;
+  padding: 0 12px;
 
   @include on-tablet {
     width: 187px;
   }
-
-
 }
 
 .pagination {
   margin-top: 40px;
+}
+
+.error {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.message {
+  @include body-text;
+
+  color: $color-secondary;
+}
+
+.reload {
+  @include buttons;
+
+  height: 40px;
+  padding: 0 24px;
+  color: $color-white;
+  background-color: $color-primary;
+  cursor: pointer;
+  transition: box-shadow 0.3s;
+
+  &:hover {
+    box-shadow: 0 3px 13px rgba(23, 32, 49, 0.4);
+  }
 }

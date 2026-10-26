@@ -53,7 +53,7 @@ export const ProductCard = ({ product }: Props) => {
           }
           onClick={() => addToCart(product)}
         >
-          {isInCart ? 'Added' : 'Add to cart'}
+          {isInCart ? 'Added to cart' : 'Add to cart'}
         </button>
         <button
           type="button"
