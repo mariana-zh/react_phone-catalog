@@ -5,7 +5,7 @@ import { CATEGORY_TITLES } from '../../../../utils/categoryTitles';
 import styles from './Breadcrumbs.module.scss';
 
 type Props = {
-  category: Category;
+  category: Category | 'favorites';
   productName?: string;
 };
 
