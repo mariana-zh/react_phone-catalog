@@ -29,6 +29,7 @@ export const HomePage = () => {
         <ProductsSlider
           title="Brand new models"
           products={[...product].sort((a, b) => b.year - a.year).slice(0, 10)}
+          showDiscount={false}
         />
       )}
       <Categories products={product} />

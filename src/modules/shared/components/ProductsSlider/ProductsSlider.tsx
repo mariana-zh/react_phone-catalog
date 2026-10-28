@@ -6,11 +6,16 @@ import styles from './ProductsSlider.module.scss';
 type Props = {
   products: Product[];
   title: string;
+  showDiscount?: boolean;
 };
 
 const GAP = 16;
 
-export const ProductsSlider = ({ products, title }: Props) => {
+export const ProductsSlider = ({
+  products,
+  title,
+  showDiscount = true,
+}: Props) => {
   const trackRef = useRef<HTMLDivElement>(null);
 
   const scroll = (way: number) => {
@@ -45,7 +50,7 @@ export const ProductsSlider = ({ products, title }: Props) => {
         {products.map(product => {
           return (
             <div className={styles.item} key={product.id}>
-              <ProductCard product={product} />
+              <ProductCard product={product} showDiscount={showDiscount} />
             </div>
           );
         })}

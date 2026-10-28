@@ -2,14 +2,14 @@
 @use '../../styles/variables' as *;
 
 .page {
-  padding: 0 16px;
+  padding: 0 16px 64px;
 
   @include on-tablet {
-    padding: 0 24px;
+    padding: 0 24px 64px;
   }
 
   @include on-desktop {
-    padding: 0 32px;
+    padding: 0 32px 80px;
   }
 }
 

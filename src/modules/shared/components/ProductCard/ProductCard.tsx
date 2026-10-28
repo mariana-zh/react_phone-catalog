@@ -5,9 +5,12 @@ import { CartContext } from '../../../../context/CartContext';
 import { FavoritesContext } from '../../../../context/FavoritesContext';
 import styles from './ProductCard.module.scss';
 
-type Props = { product: Product };
+type Props = {
+  product: Product;
+  showDiscount?: boolean;
+};
 
-export const ProductCard = ({ product }: Props) => {
+export const ProductCard = ({ product, showDiscount = true }: Props) => {
   const productLink = `/product/${product.itemId}`;
 
   const { cart, addToCart } = useContext(CartContext);
@@ -25,8 +28,10 @@ export const ProductCard = ({ product }: Props) => {
         {product.name}
       </Link>
       <div className={styles.price}>
-        <span className={styles.newPrice}>{`$${product.price}`}</span>
-        {product.fullPrice !== product.price && (
+        <span className={styles.newPrice}>
+          {`$${showDiscount ? product.price : product.fullPrice}`}
+        </span>
+        {showDiscount && product.fullPrice !== product.price && (
           <span className={styles.oldPrice}>{`$${product.fullPrice}`}</span>
         )}
       </div>
