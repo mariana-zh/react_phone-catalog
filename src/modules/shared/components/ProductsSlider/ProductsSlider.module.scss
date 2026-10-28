@@ -55,7 +55,8 @@
   }
 
   @include on-desktop {
-    padding: 0 32px;
+    margin: 0 32px;
+    padding: 0;
   }
 }
 
