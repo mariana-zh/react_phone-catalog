@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import styles from './Header.module.scss';
 import { CartContext } from '../../../../context/CartContext';
@@ -19,6 +19,28 @@ export const Header = () => {
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   const closeMenu = () => setOpenMenu(false);
+
+  useEffect(() => {
+    document.body.style.overflow = openMenu ? 'hidden' : '';
+
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [openMenu]);
+
+  useEffect(() => {
+    const tablet = window.matchMedia('(min-width: 640px)');
+
+    const handleChange = () => {
+      if (tablet.matches) {
+        setOpenMenu(false);
+      }
+    };
+
+    tablet.addEventListener('change', handleChange);
+
+    return () => tablet.removeEventListener('change', handleChange);
+  }, []);
 
   return (
     <header className={styles.header}>

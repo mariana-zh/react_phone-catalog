@@ -44,7 +44,7 @@ export const ProductDetailsPage = () => {
 
   return (
     <div className={styles.page}>
-      {product && (
+      {!isLoading && product && (
         <>
           <div className={styles.top}>
             <Breadcrumbs
